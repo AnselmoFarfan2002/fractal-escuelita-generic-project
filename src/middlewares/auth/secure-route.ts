@@ -21,16 +21,21 @@ export async function secureRoute(
   res: Response,
   next: NextFunction
 ) {
-  const { authorization } = req.headers;
+  try {
+    const { authorization } = req.headers;
 
-  if (!authorization) return res.status(401).send({ msg: "Unauthorized" });
-  const payload = await parseToken(authorization);
-  if (!payload) return res.status(401).send({ msg: "Unauthorized" });
+    if (!authorization) throw Error("Authorization header not found");
+    const payload = await parseToken(authorization);
+    if (!payload) throw Error("Wrong token format");
 
-  const user = await getUser({ email: payload.email });
-  if (!user) return res.status(401).send({ msg: "Unauthorized" });
+    const user = await getUser({ email: payload.email });
+    if (!user) throw Error("User not found");
 
-  req.user = user;
+    req.user = user;
 
-  next();
+    next();
+  } catch (err) {
+    console.error("[Auth][middleware]", err);
+    return res.sendStatus(401);
+  }
 }
