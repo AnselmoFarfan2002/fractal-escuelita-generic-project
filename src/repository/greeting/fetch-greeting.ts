@@ -18,30 +18,18 @@ export async function fetchGreetingsByEmail({
 }
 
 export type Greeting = { msg: string; email: string; uuid: string };
-export const DRAFT_GREETINGS: Greeting[] = [
-  {
-    msg: "Hello World 👑 #1",
-    email: "anselmo@test.com",
-    uuid: "f36bc837-9d4c-4d11-8f8d-54341a723589",
-  },
-  {
-    msg: "Hello World 👑 #2",
-    email: "anselmo@test.com",
-    uuid: "56013598-bd89-42e0-86cd-a172baf27d5f",
-  },
-  {
-    msg: "Hello World 👑 #3",
-    email: "anselmo@test.com",
-    uuid: "71e940a4-6b67-44ae-8846-fa3bd4865a0f",
-  },
-  {
-    msg: "Hello World 👑 #4",
-    email: "jorge@test.com",
-    uuid: "b283cffe-e918-4779-abb5-1979cf41093a",
-  },
-  {
-    msg: "Hello World 👑 #5",
-    email: "anselmo@test.com",
-    uuid: "c0aa5fb0-dc9d-4767-87e8-95ab7f992119",
-  },
-];
+export const DRAFT_GREETINGS: Greeting[] = Array.from(
+  { length: 30 },
+  (_: any, i: number) => ({
+    msg: `Hello World 👑 #${i + 1}`,
+    email: [
+      "anselmo@test.com",
+      "jorge@test.com",
+      "sebastian@test.com",
+      "luis@test.com",
+    ][Math.floor(Math.random() * 4)],
+    uuid: `f36bc837-9d4c-4d11-8f8d-54341a723589`,
+    intensity: ["low", "medium", "high"][Math.floor(Math.random() * 3)],
+    fingersOnHand: Math.floor(Math.random() * 5),
+  })
+);
