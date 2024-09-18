@@ -1,7 +1,11 @@
 model User {
-    id        Int      @id @default(autoincrement())
-    uuid      String   @unique @default(uuid())
-    email     String   @unique
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id               Int       @id @default(autoincrement())
+    uuid             String    @unique @default(uuid())
+    email            String    @unique
+    media            Media[]   @relation(name: "media")
+    chats            Chat[]
+    messagesViewed   Message[] @relation(name: "MessageViewers")
+    authoredMessages Message[] @relation(name: "MessageAuthor")
+    createdAt        DateTime  @default(now())
+    updatedAt        DateTime  @updatedAt
 }

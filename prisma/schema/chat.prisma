@@ -1,0 +1,8 @@
+model Chat {
+    id        Int       @id @default(autoincrement())
+    uuid      String    @unique @default(uuid())
+    messages  Message[]
+    users     User[]
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+}

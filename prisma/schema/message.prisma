@@ -1,0 +1,12 @@
+model Message {
+    id        Int      @id @default(autoincrement())
+    uuid      String   @unique @default(uuid())
+    viewers   User[]   @relation(name: "MessageViewers")
+    author    User     @relation(name: "MessageAuthor", fields: [authorId], references: [id])
+    authorId  Int
+    chat      Chat     @relation(fields: [chatId], references: [id])
+    chatId    Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    Media     Media[]
+}

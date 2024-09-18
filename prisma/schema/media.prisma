@@ -1,0 +1,11 @@
+model Media {
+    id        Int      @id @default(autoincrement())
+    uuid      String   @unique @default(uuid())
+    url       String
+    user      User     @relation(fields: [userId], references: [id], name: "media", map: "mediaUser")
+    userId    Int
+    message   Message  @relation(fields: [messageId], references: [id])
+    messageId Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
